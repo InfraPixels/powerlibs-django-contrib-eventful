@@ -1,0 +1,7 @@
+pytest
+pytest-cache
+pytest-cov
+pytest-django
+coverage
+coverage-badge
+flake8

@@ -1,12 +1,12 @@
 import inspect
 
-from django.db import models
 from django.db import transaction
-
-from .managers import EventfulManager
 
 
 class EventfulModelMixin:
+    class Meta:
+        abstract = True
+
     def get_context(self, **kwargs):
         force_insert = kwargs.get('force_insert', False)
 
@@ -28,10 +28,12 @@ class EventfulModelMixin:
         force_insert = kwargs.get('force_insert', False)
         context = self.get_context(force_insert=force_insert)
 
-        if context['is_creation']:
-            super().save(*args, **kwargs)
-        else:
-            with transaction.atomic():
+        with transaction.atomic():
+            if context['is_creation']:
+                self.trigger_event('pre_creation', is_creation=True)
+                super().save(*args, **kwargs)
+                self.trigger_event('post_creation', is_creation=True)
+            else:
                 self.trigger_event('pre_update', **context)
                 super().save(*args, **kwargs)
                 self.trigger_event('post_update', **context)
@@ -43,10 +45,3 @@ class EventfulModelMixin:
             self.trigger_event('pre_delete', **context)
             super().delete(*args, **kwargs)
             self.trigger_event('post_delete', **context)
-
-
-class EventfulModel(EventfulModelMixin, models.Model):
-    class Meta:
-        abstract = True
-
-    objects = EventfulManager()
