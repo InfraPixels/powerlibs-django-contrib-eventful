@@ -6,7 +6,7 @@ try:
 except ImportError:
     from distutils.core import setup
 
-version = '0.0.1'
+version = '0.0.2'
 requires = []
 
 with open('README.md') as f:
@@ -16,15 +16,15 @@ with open('LICENSE') as f:
     license = f.read()
 
 setup(
-    name='powerlibs-django-eventful-models',
+    name='powerlibs-django-contrib-eventful',
     version=version,
     description="Django models that serve as base for event based actions",
     long_description=readme,
     author='Cléber Zavadniak',
     author_email='cleberman@gmail.com',
-    url='https://github.com/Dronemapp/powerlibs-django-eventful-models',
+    url='https://github.com/Dronemapp/powerlibs-django-contrib-eventful',
     license=license,
-    packages=['powerlibs.django.eventful'],
+    packages=['powerlibs.django.contrib.eventful'],
     package_data={'': ['LICENSE', 'README.md']},
     include_package_data=True,
     install_requires=requires,
