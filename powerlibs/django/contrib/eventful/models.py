@@ -4,9 +4,6 @@ from django.db import transaction
 
 
 class EventfulModelMixin:
-    class Meta:
-        abstract = True
-
     def get_context(self, **kwargs):
         force_insert = kwargs.get('force_insert', False)
 
