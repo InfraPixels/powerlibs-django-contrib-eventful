@@ -1,3 +1,4 @@
+-r production.txt
 Django
 pytest
 pytest-cache
@@ -6,3 +7,4 @@ pytest-django
 coverage
 coverage-badge
 flake8
+six
