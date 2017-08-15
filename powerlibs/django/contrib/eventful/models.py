@@ -1,9 +1,13 @@
 import inspect
 
 from django.db import transaction
+from powerlibs.django.restless.models import serialize_model
 
 
 class EventfulModelMixin:
+    def serialize(self):  # pragma: no cover
+        return serialize_model(self)
+
     def get_context(self, **kwargs):
         force_insert = kwargs.get('force_insert', False)
 
