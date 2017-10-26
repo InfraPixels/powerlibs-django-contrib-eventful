@@ -1,5 +1,6 @@
 import inspect
 
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
 from powerlibs.django.restless.models import serialize_model
 
@@ -11,8 +12,15 @@ class EventfulModelMixin:
     def get_context(self, **kwargs):
         force_insert = kwargs.get('force_insert', False)
 
+        try:
+            type(self).objects.get(pk=self.pk)
+        except ObjectDoesNotExist:
+            exists_on_database = False
+        else:
+            exists_on_database = True
+
         the_context = {
-            'is_creation': (self.id is None or force_insert is True),
+            'is_creation': (not exists_on_database or force_insert is True),
         }
         the_context.update(kwargs)
 
