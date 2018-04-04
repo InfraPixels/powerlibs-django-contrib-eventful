@@ -15,6 +15,7 @@ class EventfulModelMixin:
         try:
             from_db = type(self).objects.get(pk=self.pk)
         except ObjectDoesNotExist:
+            from_db = None
             exists_on_database = False
         else:
             exists_on_database = True
