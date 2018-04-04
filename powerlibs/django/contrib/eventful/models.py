@@ -13,7 +13,7 @@ class EventfulModelMixin:
         force_insert = kwargs.get('force_insert', False)
 
         try:
-            type(self).objects.get(pk=self.pk)
+            from_db = type(self).objects.get(pk=self.pk)
         except ObjectDoesNotExist:
             exists_on_database = False
         else:
@@ -21,6 +21,7 @@ class EventfulModelMixin:
 
         the_context = {
             'is_creation': (not exists_on_database or force_insert is True),
+            'from_db': from_db
         }
         the_context.update(kwargs)
 
