@@ -1,12 +1,9 @@
-import os
-import sys
-
 try:
     from setuptools import setup
 except ImportError:
     from distutils.core import setup
 
-version = '0.1.1'
+version = '0.2.0'
 requires = []
 
 with open('README.md') as f:
@@ -24,7 +21,7 @@ setup(
     author_email='cleberman@gmail.com',
     url='https://github.com/Dronemapp/powerlibs-django-contrib-eventful',
     license=license,
-    packages=['powerlibs.django.contrib.eventful'],
+    packages=['powerlibs.django.contrib.eventful.models'],
     package_data={'': ['LICENSE', 'README.md']},
     include_package_data=True,
     install_requires=requires,
